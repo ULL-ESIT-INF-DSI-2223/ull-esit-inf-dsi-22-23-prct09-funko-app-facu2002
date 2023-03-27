@@ -1,7 +1,10 @@
 import "mocha";
 import { expect } from "chai";
-import { AddMapReduce, SubMapReduce, ProdMapReduce, DivMapReduce, MyMapReduce } from "../../src/modificacion/ejercicio1";
-
+import { MyMapReduce } from "../../src/modificacion/myMapReduce";
+import { AddMapReduce } from "../../src/modificacion/addMapReduce";
+import { SubMapReduce } from "../../src/modificacion/subMapReduce";
+import { ProdMapReduce } from "../../src/modificacion/prodMapReduce";
+import { DivMapReduce } from "../../src/modificacion/divMapReduce";
 
 const arrayAdd = [1, 2, 3, 4, 5];
 const arraySub = [5, 4, 3, 2, 1];
