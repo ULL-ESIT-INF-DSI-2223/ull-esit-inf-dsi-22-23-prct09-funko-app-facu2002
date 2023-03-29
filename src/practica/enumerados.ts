@@ -1,4 +1,6 @@
-
+/**
+ * Enumerado que permite representar los tipos de Funko
+ */
 export enum TipoFunko {
   'Pop' = 'Pop!',
   'PopRides' = 'Pop! Rides',
@@ -7,6 +9,11 @@ export enum TipoFunko {
 }
 
 
+/**
+ * Función que permite convertir un string en un tipo de funko
+ * @param tipo cadena de texto que representa el tipo de funko
+ * @returns elemento del enumerado TipoFunko
+ */
 export function tipoFunko(tipo: string): TipoFunko {
   switch (tipo) {
     case 'Pop!':
@@ -23,6 +30,10 @@ export function tipoFunko(tipo: string): TipoFunko {
 }
 
 
+
+/**
+ * Enumerado que permite representar los géneros de Funko
+ */
 export enum GeneroFunko {
   'Normal' = 'Normal',
   'Animacion' = 'Animación',
@@ -34,6 +45,11 @@ export enum GeneroFunko {
 }
 
 
+/**
+ * Función que permite convertir un string en un género de funko
+ * @param genero cadena de texto que representa el género de funko
+ * @returns elemento del enumerado GeneroFunko
+ */
 export function generoFunko(genero: string): GeneroFunko {
   switch (genero) {
     case 'Animación':

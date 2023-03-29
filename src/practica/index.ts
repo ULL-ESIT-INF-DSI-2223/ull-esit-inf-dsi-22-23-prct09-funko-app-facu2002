@@ -1,4 +1,4 @@
-import { Funko } from './entidades/funko.js';
+import { Funko } from './funko.js';
 // import { TipoFunko, GeneroFunko } from './enumerados/enumerados.js';
 // import fs from 'fs';
 // import { ManejadorJSON } from './utilidades/manejadorJSON.js';
@@ -9,9 +9,13 @@ import { Funko } from './entidades/funko.js';
 
 import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
-import { tipoFunko, generoFunko } from './enumerados/enumerados.js';
-import { ManejadorJSON } from './utilidades/manejadorJSON.js';
+import { tipoFunko, generoFunko } from './enumerados.js';
+import { ManejadorJSON } from './manejadorJSON.js';
 
+
+/**
+ * Comando para agregar un funko a la colección de un usuario
+ */
 yargs(hideBin(process.argv))
   .command('add', 'Agrega un funko a la colección del usuario', {
     usuario: {
@@ -78,7 +82,9 @@ yargs(hideBin(process.argv))
 
 
 
-
+/**
+ * Comando para listar los funkos de un usuario
+ */
 yargs(hideBin(process.argv))
   .command('list', 'Lista los funkos de un usuario', {
   usuario: {
@@ -93,6 +99,9 @@ yargs(hideBin(process.argv))
 .argv;
 
 
+/**
+ * Comando para eliminar un funko de un usuario
+ */
 yargs(hideBin(process.argv))
   .command('remove', 'Elimina un funko de un usuario', {
   usuario: {
@@ -112,6 +121,9 @@ yargs(hideBin(process.argv))
 .argv;
 
 
+/**
+ * Comando para mostrar un funko de un usuario
+ */
 yargs(hideBin(process.argv))
   .command('read', 'Muestra un funko de un usuario', {
   usuario: {
@@ -129,3 +141,71 @@ yargs(hideBin(process.argv))
   })
 .help()
 .argv;
+
+
+/**
+ * Comando para modificar un funko de un usuario
+ */
+yargs(hideBin(process.argv))
+  .command('update', 'Modifica un funko de la colección del usuario', {
+    usuario: {
+      description: 'Nombre de usuario',
+      type: 'string',
+      demandOption: true
+    },
+    id: {
+     description: 'ID del funko',
+     type: 'number',
+     demandOption: true
+    },
+    nombre: {
+      description: 'Nombre del funko',
+      type: 'string',
+      demandOption: true
+    },
+    descripcion: {
+      description: 'Descripción del funko',
+      type: 'string',
+      demandOption: true
+    },
+    tipo: {
+      description: 'Tipo del funko',
+      type: 'string',
+      demandOption: true
+    },
+    genero: {
+      description: 'Género del funko',
+      type: 'string',
+      demandOption: true
+    },
+    franquicia: {
+      description: 'Franquicia del funko',
+      type: 'string',
+      demandOption: true
+    },
+    numero: {
+      description: 'Número de franquicia del funko',
+      type: 'number',
+      demandOption: true
+    },
+    exclusivo: {
+      description: 'Determina si un funko es exclusivo',
+      type: 'boolean',
+      demandOption: true
+    },
+    caracteristicas: {
+      description: 'Características del funko',
+      type: 'string',
+      demandOption: true
+    },
+    valor: {
+      description: 'Valor de mercado del funko',
+      type: 'number',
+      demandOption: true
+    }
+    }, (argv) => {
+     const funko = new Funko(argv.id, argv.nombre, argv.descripcion, tipoFunko(argv.tipo), generoFunko(argv.genero), argv.franquicia, argv.numero, argv.exclusivo, argv.caracteristicas, argv.valor);
+     ManejadorJSON.modificarFunkoDB(funko, argv.usuario);
+    })
+ .help()
+ .argv;
