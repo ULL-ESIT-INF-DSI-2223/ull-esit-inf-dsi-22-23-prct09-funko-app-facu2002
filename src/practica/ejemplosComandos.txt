@@ -1,0 +1,8 @@
+tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 1 --nombre "funkaso" --descripcion "el mejor funko del mundo" --tipo "Pop" --genero "Animación" --franquicia "Mercadona" --numero 3 --exclusivo true --caracteristicas "Ninguna" --valor 20
+tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 2 --nombre "funkito" --descripcion "el segundo mejor funko del mundo" --tipo "Pop" --genero "Animación" --franquicia "Mercadona" --numero 3 --exclusivo true --caracteristicas "Ninguna" --valor 20
+
+tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 3 --nombre "el caro" --descripcion "el funko mas caro del mundo" --tipo "VynilSoda" --genero "Animación" --franquicia "Nike" --numero 3 --exclusivo false --caracteristicas "Brilla en la oscuridad" --valor 200
+
+tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 4 --nombre "otrofunko" --descripcion "el funko mas caro del mundo" --tipo "VynilSoda" --genero "Animación" --franquicia "Nike" --numero 4 --exclusivo false --caracteristicas "Brilla en la oscuridad" --valor 57
+
+tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 5 --nombre "actor" --descripcion "el funko mas caro del mundo" --tipo "VynilSoda" --genero "Animación" --franquicia "Nike" --numero 3 --exclusivo false --caracteristicas "Brilla en la oscuridad" --valor 89

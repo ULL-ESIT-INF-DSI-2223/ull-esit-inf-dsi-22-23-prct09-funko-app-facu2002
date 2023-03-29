@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-8d59dc4de5201274e310e4c54b9627a8934c3b88527886e3b421487c677d23eb.svg)](https://classroom.github.com/a/fmDo8ROl)",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "mocha",
     "doc": "typedoc",
-    "coverage": "nyc npm test && nyc report --reporter=lcov",
-    "start": "tsc-watch --onSuccess \"node dist/modificacion/ejercicio1.js\""
+    "coverage": "c8 npm test && c8 report --reporter=lcov",
+    "start": "tsc-watch --onSuccess \"node dist/practica/index.js\"",
+    "ejec": "tsc --outDir dist && node dist/practica/index.js",
+    "startMod": "tsc-watch --onSuccess \"node dist/modificacion/ejercicio1.js\""
   },
   "repository": {
     "type": "git",
@@ -23,6 +26,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.4",
     "@types/mocha": "^10.0.1",
+    "@types/yargs": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "chai": "^4.3.7",
@@ -36,5 +40,9 @@
     "tsc-watch": "^6.0.0",
     "typedoc": "^0.23.28",
     "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "yargs": "^17.7.1"
   }
 }

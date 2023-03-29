@@ -1,4 +1,4 @@
-import { MyMapReduce } from './myMapReduce';
+import { MyMapReduce } from './myMapReduce.js';
 
 
 
