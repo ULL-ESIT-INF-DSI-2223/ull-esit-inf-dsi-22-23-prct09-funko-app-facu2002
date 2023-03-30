@@ -34,16 +34,16 @@ export abstract class ManejadorJSON {
     const listaFunkos: Funko[] = [];
     let listaFicheros: string[] = [];
     if(testing === undefined || testing === false) {
-      listaFicheros = fs.readdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}`);
+      listaFicheros = fs.readdirSync('./db/' + usuario + '/');
     } else if (testing === true) {
-      listaFicheros = fs.readdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}`);
+      listaFicheros = fs.readdirSync('./dbTesting/' + usuario + '/');
     }
     for (const fichero of listaFicheros) {
       let funko;
       if(testing === undefined || testing === false) {
-        funko = JSON.parse(fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${fichero}`, 'utf-8'));
+        funko = JSON.parse(fs.readFileSync('./db/' + usuario + '/' + fichero, 'utf-8'));
       } else if (testing === true) {
-        funko = JSON.parse(fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${fichero}`, 'utf-8'));
+        funko = JSON.parse(fs.readFileSync('./dbTesting/' + usuario + '/' + fichero, 'utf-8'));
       }
       listaFunkos.push(Object.assign(new Funko(0, '', '', TipoFunko.Pop, GeneroFunko.Normal, '', 0, false, '', 0), funko));
     }
@@ -98,24 +98,24 @@ export abstract class ManejadorJSON {
         return false;
       } else {
         if(testing === undefined || testing === false) {
-          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));
+          fs.writeFileSync('./db/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
           console.log(chalk.green(`Nuevo Funko agregado en la colección de ${usuario}.`));
           return true;
         } else if (testing === true) {
-          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));
+          fs.writeFileSync('./dbTesting/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
           console.log(chalk.green(`Nuevo Funko agregado en la colección de ${usuario}.`));
           return true;
         }
       }
     } else {
       if(testing === undefined || testing === false) {
-        fs.mkdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/`);
-        fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));
+        fs.mkdirSync('./db/' + usuario + '/');
+        fs.writeFileSync('./db/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
         console.log(chalk.green(`Usuario creado. Nuevo Funko agregado en la colección de ${usuario}.`));
         return true;
       } else if (testing === true) {
-        fs.mkdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/`);
-        fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));
+        fs.mkdirSync('./dbTesting/' + usuario + '/');
+        fs.writeFileSync('./dbTesting/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
         console.log(chalk.green(`Usuario creado. Nuevo Funko agregado en la colección de ${usuario}.`));
         return true;
       }
@@ -136,9 +136,9 @@ export abstract class ManejadorJSON {
         const funkoEliminado = ManejadorJSON.getFunko(usuario, idFunko, testing);
         if(funkoEliminado !== null) {
           if(testing === undefined || testing === false) {
-            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funkoEliminado.Nombre}.json`);
+            fs.unlinkSync('./db/' + usuario + '/' + funkoEliminado.Nombre + '.json');
           } else {
-            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funkoEliminado.Nombre}.json`);
+            fs.unlinkSync('./dbTesting/' + usuario + '/' + funkoEliminado.Nombre + '.json');
           }
           console.log(chalk.green(`Funko eliminado de la colección de ${usuario}.`));
         }
@@ -153,23 +153,30 @@ export abstract class ManejadorJSON {
     }
   }
  
-  ///////////// TODO
+
+  /**
+   * Método estático que permite modificar un funko de la lista de funkos de un usuario
+   * @param funko funko con los valores modificados
+   * @param usuario usuario del que se modifica el funko
+   * @param testing variable que indica si se está en modo testing
+   * @returns booleano que indica si se ha modificado o no el funko
+   */
   public static modificarFunkoDB(funko: Funko, usuario: string, testing?: boolean): boolean {
     if(ManejadorJSON.existeUsuario(usuario, testing)) {
       if(ManejadorJSON.existeFunko(usuario, funko.Id, testing)) {
         const funkoEliminado = ManejadorJSON.getFunko(usuario, funko.Id, testing);
         if(funkoEliminado !== null) {
           if(testing === undefined || testing === false) {
-            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funkoEliminado.Nombre}.json`);
+            fs.unlinkSync('./db/' + usuario + '/' + funkoEliminado.Nombre + '.json');
           } else if (testing === true) {
-            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funkoEliminado.Nombre}.json`);
+            fs.unlinkSync('./dbTesting/' + usuario + '/' + funkoEliminado.Nombre + '.json');
           }
         }
         if(testing === undefined || testing === false) {
-          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));
+          fs.writeFileSync('./db/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
           console.log(chalk.green(`Funko actualizado en la colección de ${usuario}.`));
         } else if (testing === true) {
-          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));
+          fs.writeFileSync('./dbTesting/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
           console.log(chalk.green(`Funko actualizado en la colección de ${usuario}.`));
         }
       } else {

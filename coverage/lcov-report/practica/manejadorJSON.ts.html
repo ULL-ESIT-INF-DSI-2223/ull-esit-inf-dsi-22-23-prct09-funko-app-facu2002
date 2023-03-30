@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.08% </span>
+                <span class="strong">76.79% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>175/230</span>
+                <span class='fraction'>182/237</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.08% </span>
+                <span class="strong">76.79% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>175/230</span>
+                <span class='fraction'>182/237</span>
             </div>
         
             
@@ -292,7 +292,14 @@
 <a name='L227'></a><a href='#L227'>227</a>
 <a name='L228'></a><a href='#L228'>228</a>
 <a name='L229'></a><a href='#L229'>229</a>
-<a name='L230'></a><a href='#L230'>230</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -446,6 +453,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -557,16 +571,16 @@ export abstract class ManejadorJSON {
     const listaFunkos: Funko[] = [];
     let listaFicheros: string[] = [];
     if(testing === undefined || testing === false) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      listaFicheros = fs.readdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}`);</span>
+<span class="cstat-no" title="statement not covered" >      listaFicheros = fs.readdirSync('./db/' + usuario + '/');</span>
     } else if (testing === true) {
-      listaFicheros = fs.readdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}`);
+      listaFicheros = fs.readdirSync('./dbTesting/' + usuario + '/');
     }
     for (const fichero of listaFicheros) {
       let funko;
       if(testing === undefined || testing === false) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >        funko = JSON.parse(fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${fichero}`, 'utf-8'));</span>
+<span class="cstat-no" title="statement not covered" >        funko = JSON.parse(fs.readFileSync('./db/' + usuario + '/' + fichero, 'utf-8'));</span>
       } else if (testing === true) {
-        funko = JSON.parse(fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${fichero}`, 'utf-8'));
+        funko = JSON.parse(fs.readFileSync('./dbTesting/' + usuario + '/' + fichero, 'utf-8'));
       }
       listaFunkos.push(Object.assign(new Funko(0, '', '', TipoFunko.Pop, GeneroFunko.Normal, '', 0, false, '', 0), funko));
     }
@@ -621,24 +635,24 @@ export abstract class ManejadorJSON {
         return false;
       } else {
         if(testing === undefined || testing === false) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));</span>
+<span class="cstat-no" title="statement not covered" >          fs.writeFileSync('./db/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));</span>
 <span class="cstat-no" title="statement not covered" >          console.log(chalk.green(`Nuevo Funko agregado en la colección de ${usuario}.`));</span>
 <span class="cstat-no" title="statement not covered" >          return true;</span>
         } else if (testing === true) {
-          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));
+          fs.writeFileSync('./dbTesting/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
           console.log(chalk.green(`Nuevo Funko agregado en la colección de ${usuario}.`));
           return true;
         }
       }
     }<span class="branch-0 cbranch-no" title="branch not covered" > else {</span>
 <span class="cstat-no" title="statement not covered" >      if(testing === undefined || testing === false) {</span>
-<span class="cstat-no" title="statement not covered" >        fs.mkdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/`);</span>
-<span class="cstat-no" title="statement not covered" >        fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));</span>
+<span class="cstat-no" title="statement not covered" >        fs.mkdirSync('./db/' + usuario + '/');</span>
+<span class="cstat-no" title="statement not covered" >        fs.writeFileSync('./db/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));</span>
 <span class="cstat-no" title="statement not covered" >        console.log(chalk.green(`Usuario creado. Nuevo Funko agregado en la colección de ${usuario}.`));</span>
 <span class="cstat-no" title="statement not covered" >        return true;</span>
 <span class="cstat-no" title="statement not covered" >      } else if (testing === true) {</span>
-<span class="cstat-no" title="statement not covered" >        fs.mkdirSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/`);</span>
-<span class="cstat-no" title="statement not covered" >        fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));</span>
+<span class="cstat-no" title="statement not covered" >        fs.mkdirSync('./dbTesting/' + usuario + '/');</span>
+<span class="cstat-no" title="statement not covered" >        fs.writeFileSync('./dbTesting/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));</span>
 <span class="cstat-no" title="statement not covered" >        console.log(chalk.green(`Usuario creado. Nuevo Funko agregado en la colección de ${usuario}.`));</span>
 <span class="cstat-no" title="statement not covered" >        return true;</span>
 <span class="cstat-no" title="statement not covered" >      }</span>
@@ -659,9 +673,9 @@ export abstract class ManejadorJSON {
         const funkoEliminado = ManejadorJSON.getFunko(usuario, idFunko, testing);
         if(funkoEliminado !== null) {
           if(testing === undefined || testing === false) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funkoEliminado.Nombre}.json`);</span>
+<span class="cstat-no" title="statement not covered" >            fs.unlinkSync('./db/' + usuario + '/' + funkoEliminado.Nombre + '.json');</span>
           } else {
-            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funkoEliminado.Nombre}.json`);
+            fs.unlinkSync('./dbTesting/' + usuario + '/' + funkoEliminado.Nombre + '.json');
           }
           console.log(chalk.green(`Funko eliminado de la colección de ${usuario}.`));
         }
@@ -676,23 +690,30 @@ export abstract class ManejadorJSON {
 <span class="cstat-no" title="statement not covered" >    }</span>
   }
  
-  ///////////// TODO
+&nbsp;
+  /**
+   * Método estático que permite modificar un funko de la lista de funkos de un usuario
+   * @param funko funko con los valores modificados
+   * @param usuario usuario del que se modifica el funko
+   * @param testing variable que indica si se está en modo testing
+   * @returns booleano que indica si se ha modificado o no el funko
+   */
   public static <span class="fstat-no" title="function not covered" >modificarFunkoDB(funko: Funko, usuario: string, testing?: boolean): boolean {</span>
 <span class="cstat-no" title="statement not covered" >    if(ManejadorJSON.existeUsuario(usuario, testing)) {</span>
 <span class="cstat-no" title="statement not covered" >      if(ManejadorJSON.existeFunko(usuario, funko.Id, testing)) {</span>
 <span class="cstat-no" title="statement not covered" >        const funkoEliminado = ManejadorJSON.getFunko(usuario, funko.Id, testing);</span>
 <span class="cstat-no" title="statement not covered" >        if(funkoEliminado !== null) {</span>
 <span class="cstat-no" title="statement not covered" >          if(testing === undefined || testing === false) {</span>
-<span class="cstat-no" title="statement not covered" >            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funkoEliminado.Nombre}.json`);</span>
+<span class="cstat-no" title="statement not covered" >            fs.unlinkSync('./db/' + usuario + '/' + funkoEliminado.Nombre + '.json');</span>
 <span class="cstat-no" title="statement not covered" >          } else if (testing === true) {</span>
-<span class="cstat-no" title="statement not covered" >            fs.unlinkSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funkoEliminado.Nombre}.json`);</span>
+<span class="cstat-no" title="statement not covered" >            fs.unlinkSync('./dbTesting/' + usuario + '/' + funkoEliminado.Nombre + '.json');</span>
 <span class="cstat-no" title="statement not covered" >          }</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
 <span class="cstat-no" title="statement not covered" >        if(testing === undefined || testing === false) {</span>
-<span class="cstat-no" title="statement not covered" >          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));</span>
+<span class="cstat-no" title="statement not covered" >          fs.writeFileSync('./db/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));</span>
 <span class="cstat-no" title="statement not covered" >          console.log(chalk.green(`Funko actualizado en la colección de ${usuario}.`));</span>
 <span class="cstat-no" title="statement not covered" >        } else if (testing === true) {</span>
-<span class="cstat-no" title="statement not covered" >          fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}/${funko.Nombre}.json`, JSON.stringify(funko));</span>
+<span class="cstat-no" title="statement not covered" >          fs.writeFileSync('./dbTesting/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));</span>
 <span class="cstat-no" title="statement not covered" >          console.log(chalk.green(`Funko actualizado en la colección de ${usuario}.`));</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
 <span class="cstat-no" title="statement not covered" >      } else {</span>
@@ -757,7 +778,7 @@ export abstract class ManejadorJSON {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-30T09:48:29.461Z
+                at 2023-03-30T12:05:51.821Z
             </div>
         <script src="../prettify.js"></script>
         <script>
