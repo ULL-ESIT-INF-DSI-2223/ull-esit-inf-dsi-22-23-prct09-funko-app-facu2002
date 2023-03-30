@@ -72,10 +72,15 @@ yargs(hideBin(process.argv))
       description: 'Valor de mercado del funko',
       type: 'number',
       demandOption: true
+    },
+    testing: {
+      description: 'Determina si se están ejecutando las pruebas',
+      type: 'boolean',
+      demandOption: false
     }
     }, (argv) => {
      const funko = new Funko(argv.id, argv.nombre, argv.descripcion, tipoFunko(argv.tipo), generoFunko(argv.genero), argv.franquicia, argv.numero, argv.exclusivo, argv.caracteristicas, argv.valor);
-     ManejadorJSON.agregarFunkoDB(funko, argv.usuario);
+     ManejadorJSON.agregarFunkoDB(funko, argv.usuario, argv.testing);
     })
  .help()
  .argv;
@@ -91,9 +96,14 @@ yargs(hideBin(process.argv))
     description: 'Nombre de usuario',
     type: 'string',
     demandOption: true
+  },
+  testing: {
+    description: 'Determina si se están ejecutando las pruebas',
+    type: 'boolean',
+    demandOption: false
   }
   }, (argv) => {
-    ManejadorJSON.listarFunkoDB(argv.usuario);
+    ManejadorJSON.listarFunkoDB(argv.usuario, argv.testing);
   })
 .help()
 .argv;
@@ -113,9 +123,14 @@ yargs(hideBin(process.argv))
     description: 'ID del funko que se quiere eliminar',
     type: 'number',
     demandOption: true
+  },
+  testing: {
+    description: 'Determina si se están ejecutando las pruebas',
+    type: 'boolean',
+    demandOption: false
   }
   }, (argv) => {
-    ManejadorJSON.eliminarFunkoDB(argv.id, argv.usuario);
+    ManejadorJSON.eliminarFunkoDB(argv.id, argv.usuario, argv.testing);
   })
 .help()
 .argv;
@@ -135,9 +150,14 @@ yargs(hideBin(process.argv))
     description: 'ID del funko que se quiere eliminar',
     type: 'number',
     demandOption: true
+  },
+  testing: {
+    description: 'Determina si se están ejecutando las pruebas',
+    type: 'boolean',
+    demandOption: false
   }
   }, (argv) => {
-    ManejadorJSON.mostrarFunkoDB(argv.id, argv.usuario);
+    ManejadorJSON.mostrarFunkoDB(argv.id, argv.usuario, argv.testing);
   })
 .help()
 .argv;
@@ -202,10 +222,15 @@ yargs(hideBin(process.argv))
       description: 'Valor de mercado del funko',
       type: 'number',
       demandOption: true
+    },
+    testing: {
+      description: 'Determina si se están ejecutando las pruebas',
+      type: 'boolean',
+      demandOption: false
     }
     }, (argv) => {
      const funko = new Funko(argv.id, argv.nombre, argv.descripcion, tipoFunko(argv.tipo), generoFunko(argv.genero), argv.franquicia, argv.numero, argv.exclusivo, argv.caracteristicas, argv.valor);
-     ManejadorJSON.modificarFunkoDB(funko, argv.usuario);
+     ManejadorJSON.modificarFunkoDB(funko, argv.usuario, argv.testing);
     })
  .help()
  .argv;

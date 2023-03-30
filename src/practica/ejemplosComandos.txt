@@ -1,8 +1,29 @@
-tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 1 --nombre "funkaso" --descripcion "el mejor funko del mundo" --tipo "Pop" --genero "Animación" --franquicia "Mercadona" --numero 3 --exclusivo true --caracteristicas "Ninguna" --valor 20
-tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 2 --nombre "funkito" --descripcion "el segundo mejor funko del mundo" --tipo "Pop" --genero "Animación" --franquicia "Mercadona" --numero 3 --exclusivo true --caracteristicas "Ninguna" --valor 20
+Para crear un funko:
+tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 2 --nombre "funkito" --descripcion "el mejor funko del mundo" --tipo "Pop" --genero "Animación" --franquicia "Mercadona" --numero 3 --exclusivo true --caracteristicas "Ninguna" --valor 20
 
-tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 3 --nombre "el caro" --descripcion "el funko mas caro del mundo" --tipo "VynilSoda" --genero "Animación" --franquicia "Nike" --numero 3 --exclusivo false --caracteristicas "Brilla en la oscuridad" --valor 200
+Para crear un funko en la base de datos de testeo:
+tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 2 --nombre "funkito" --descripcion "el mejor funko del mundo" --tipo "Pop" --genero "Animación" --franquicia "Mercadona" --numero 3 --exclusivo true --caracteristicas "Ninguna" --valor 20 --testing true
 
-tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 4 --nombre "otrofunko" --descripcion "el funko mas caro del mundo" --tipo "VynilSoda" --genero "Animación" --franquicia "Nike" --numero 4 --exclusivo false --caracteristicas "Brilla en la oscuridad" --valor 57
+Para eliminar un funko:
+tsc --outDir dist && node dist/practica/index.js remove --usuario "facundo" --id 2
 
-tsc --outDir dist && node dist/practica/index.js add --usuario "facundo" --id 5 --nombre "actor" --descripcion "el funko mas caro del mundo" --tipo "VynilSoda" --genero "Animación" --franquicia "Nike" --numero 3 --exclusivo false --caracteristicas "Brilla en la oscuridad" --valor 89
+Para eliminar un funko en la base de datos de testeo:
+tsc --outDir dist && node dist/practica/index.js remove --usuario "facundo" --id 2 --testing true
+
+Para modificar un funko:
+tsc --outDir dist && node dist/practica/index.js update ???????????
+
+Para modificar un funko en la base de datos de testeo:
+tsc --outDir dist && node dist/practica/index.js update ???????????
+
+Para listar los funkos de un usuario:
+tsc --outDir dist && node dist/practica/index.js list --usuario "facundo"
+
+Para listar los funkos de un usuario de la base de datos de testeo:
+tsc --outDir dist && node dist/practica/index.js list --usuario "facundo" --testing true
+
+Para mostrar la información del funko de un usuario:
+tsc --outDir dist && node dist/practica/index.js read --usuario "facundo" --id 2
+
+Para mostrar la información del funko de un usuario de la base de datos de testeo:
+tsc --outDir dist && node dist/practica/index.js read --usuario "facundo" --id 2 --testing true

@@ -17,3 +17,27 @@
 
 
 ## Índice
+
+1. [Introducción](#introducción)
+
+
+### Introducción
+
+Para la realización de la práctica primero me tuve que estudiar los módulos yargs, chalk y el sistema de ficheros de node.js, esto me permitió captar la idea de la práctica y poder desarrollarla de manera correcta. Una vez que tuve claro el funcionamiento de los módulos y el sistema de ficheros, me puse a desarrollar el programa. Para la explicación del mismo dividiré la explicación por módulos.
+
+
+### Conclusión
+
+Desde mi punto de vista esta ha sido una de las prácticas más entretenidas de hacer, ya que el módulo del sistema de ficheros que proporciona node.js me parece muy intuitivo y fácil de usar. Por otro lado me pareció interesante el hecho de trabajar con el paquete chalk, el cual te de la posibilidad de darle color a la salida de la terminal, ya que se pueden establecer patrones de color para los diferentes mensajes que puedan aparecer por pantalla. Por último quiero destacar el uso del último paquete, yargs, el cual me pareció fascinante cómo se puede establecer un sistema de comandos de manera tan sencilla y rápida.
+
+
+
+### Bibliografía
+
+
+[Tutorial Chalk](https://programacion.net/articulo/cambia_el_color_de_fuente_de_la_consola_de_node_js_con_chalk_1103)
+
+[Tutorial Yargs](http://yargs.js.org/)
+
+[Funciones que proporciona el módulo fs](https://nodejs.org/docs/latest-v19.x/api/fs.html)
+
