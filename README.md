@@ -23,8 +23,9 @@
 3. [Enumerados](#enumerados)
 4. [Clase ManejadorJSON](#clase-manejadorjson)
 5. [Index](#index)
-6. [Conclusión](#conclusión)
-7. [Bibliografía](#bibliografía)
+6. [Modificación](#modificación)
+7. [Conclusión](#conclusión)
+8. [Bibliografía](#bibliografía)
 
 
 ### Introducción
@@ -231,10 +232,193 @@ Para la segunda parte lo único distinto que debemos hacer es crear el usuario a
 16  }
 ```
 
+El siguiente método es eliminarFunkoDB, este método primero comprueba si existe el usuario al que se le quiere eliminar el funko, en caso negativo se lanza un mensaje de error, en caso contrario pasaría a evaluarse si ya existe el funko, nuevamente en caso negativo se lanza un mensaje de error, en caso afirmativo seleccionamos el funko gracias a la función que explicamos antes getFunko y se hace uso de la función unlinkSync, la cual elimina el fichero del funko.
+
+
+```typescript
+1     public static eliminarFunkoDB(idFunko: number, usuario: string, testing?: boolean): boolean {
+2       if(ManejadorJSON.existeUsuario(usuario, testing)) {
+3         if(ManejadorJSON.existeFunko(usuario, idFunko, testing)) {
+4           const funkoEliminado = ManejadorJSON.getFunko(usuario, idFunko, testing);
+5           if(funkoEliminado !== null) {
+6             if(testing === undefined || testing === false) {
+7               fs.unlinkSync('./db/' + usuario + '/' + funkoEliminado.Nombre + '.json');
+8             } else {
+9               fs.unlinkSync('./dbTesting/' + usuario + '/' + funkoEliminado.Nombre + '.json');
+10            }
+11            console.log(chalk.green(`Funko eliminado de la colección de ${usuario}.`));
+12          }
+13          return true;
+14        } else {
+15          console.log(chalk.red(`El funko no existe en la colección de ${usuario}.`));
+16          return false;
+17        }
+18      } else {
+19        console.log(chalk.red('Uupps! El usuario no existe, pruebe con otro usuario.'));
+20        return false;
+21      }
+22    }
+```
+
+El siguiente método es modificarFunkoDB, este método es bastante similar al anterior, primero comprueba si existe el usuario, en caso negativo se lanza un mensaje de error, en caso afrimativo se comprueba si existe el funko. En el caso en el que el funko no existe se lanza un mensaje de error y en caso contrario se selecciona el funko con la función getFunko y se elimina el fichero del funko, para después crear el nuevo funko en base a los parámetros nuevos que el usuario desea. 
+
+```typescript
+1     public static modificarFunkoDB(funko: Funko, usuario: string, testing?: boolean): boolean {
+2       if(ManejadorJSON.existeUsuario(usuario, testing)) {
+3         if(ManejadorJSON.existeFunko(usuario, funko.Id, testing)) {
+4           const funkoEliminado = ManejadorJSON.getFunko(usuario, funko.Id, testing);
+5           if(funkoEliminado !== null) {
+6             if(testing === undefined || testing === false) {
+7               fs.unlinkSync('./db/' + usuario + '/' + funkoEliminado.Nombre + '.json');
+8             } else if (testing === true) {
+9               fs.unlinkSync('./dbTesting/' + usuario + '/' + funkoEliminado.Nombre + '.json');
+10            }
+11          }
+12          if(testing === undefined || testing === false) {
+13            fs.writeFileSync('./db/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
+14            console.log(chalk.green(`Funko actualizado en la colección de ${usuario}.`));
+15          } else if (testing === true) {
+16            fs.writeFileSync('./dbTesting/' + usuario + '/' + funko.Nombre + '.json', JSON.stringify(funko));
+17            console.log(chalk.green(`Funko actualizado en la colección de ${usuario}.`));
+18          }
+19        } else {
+20          console.log(chalk.red(`El funko no existe en la colección de ${usuario}.`));
+21        }
+22        return true;
+23      } else {
+24        console.log(chalk.red('Uupps! El usuario no existe, pruebe con otro usuario.'));
+25      }
+26      return false;
+27    }
+```
+
+El siguiente método es listarFunkoDB, este método muestra por pantalla la lista de funko de un usuario, para ello primero comprueba si existe el usuario, en caso negativo se lanza un mensaje de error, en caso contrario se extrae la lista de funko del usuario y se muestra por pantalla con la función toString de la clase Funko. Hay que aclarar que el precio del funko se mostrará con un color diferente atendiendo a los rangos que establecimos anteriormente.
+
+```typescript
+1     public static listarFunkoDB(usuario: string, testing?: boolean): boolean {
+2       if(ManejadorJSON.existeUsuario(usuario, testing)) {
+3         const listaFunkos = ManejadorJSON.extraerFunkos(usuario, testing);
+4         for(const funko of listaFunkos) {
+5           console.log(funko.toString());
+6         }
+7         return true;
+8       } else {
+9         console.log(chalk.red('Uupps! El usuario no existe, pruebe con otro usuario.'));
+10        return false;
+11      }
+12    }
+```
+
+El último método de esta clase es el método que muestra un único funko de un usuario, mostrarFunkoDB. Este método hace algo similar al anterior, primero comprueba si existe el usuario, en caso negativo se lanza un mensaje de error, en caso contrario se comprueba si existe el funko. En el caso en el que el funko no existe se lanza un mensaje de error y en caso contrario se selecciona el funko con la función getFunko y se muestra por pantalla con la función toString de la clase Funko. 
+
+```typescript
+1     public static mostrarFunkoDB(idFunko: number, usuario: string, testing?: boolean): boolean {
+2       if(ManejadorJSON.existeUsuario(usuario, testing)) {
+3         if(ManejadorJSON.existeFunko(usuario, idFunko, testing)) {
+4           const funko = ManejadorJSON.getFunko(usuario, idFunko, testing);
+5           if(funko !== null) {
+6             console.log(funko.toString());
+7           }
+8           return true;
+9         } else {
+10          console.log(chalk.red(`El funko no existe en la colección de ${usuario}.`));
+11          return false;
+12        }
+13      } else {
+14        console.log(chalk.red('Uupps! El usuario no existe, pruebe con otro usuario.'));
+15        return false;
+16      }
+17    }
+```
 
 
 ### Index
 
+En el fichero index.ts se encuentra todo lo necesario para manejar los comandos con los que se puede interactuar con el programa. Para ello se ha utilizado el paquete yargs, el cual nos proporciona una serie de funciones que nos permiten establecer los comandos y los parámetros que se pueden utilizar. 
+
+El primer comando que se ha establecido es el comando que añade funkos a una colección de un usuario, para ello se declararon los parámetros de manera obligatoria que describen a un funko y el parámetro que define el nombre del usuario, luego se crea el funko y se llama a la función que agrega un funko a la colección del usuario, agregarFunkoDB. 
+
+El siguiente comando es el que elimina un funko de la lista de un usuario. Para ello se declaran dos parámetros que deben pasarse obligatoriamente, el nombre del usuario y el id del funko, luego se llama a la función que elimina un funko de la colección del usuario, eliminarFunkoDB.
+
+El tercer comando es el que modifica un funko de la lista de un usuario. Para ello se declaran los parámetros que deben pasarse obligatoriamente, todos los atributos que definen a un funko y el nombre del usuario al que se le quiere modificar la lista. El funko que se modificará será el que tenga el mismo id que el funko que se pasa como parámetro. Luego se crea el funko y se llama a la función modificarFunkoDB.
+
+El cuarto comando es el que muestra la lista de funkos de un usuario. Para ello se declara un parámetro que debe pasarse obligatoriamente, el nombre del usuario. Luego se llama a la función listarFunkoDB.
+
+La quinta y última función es la que muestra un único funko de un usuario. Para ello se declaran dos parámetros que deben pasarse obligatoriamente, el nombre del usuario y el id del funko. Luego se llama a la función mostrarFunkoDB.
+
+
+### Modificación
+
+La solución que aporté en la modificación fue sencilla, una clase madre myMapReduce y cuatro subclases, AddMapReduce, SubMapReduce, ProdMapReduce y DivMapReduce.
+
+La clase principal cuenta con un atributo que viene a representar el array de números, por lo que en el constructor se inicializa a vacío. Además cuenta con un método run que recibe como parámetro un array de números y una función callback, este método se encarga de inicializar el array de números, de hacer una llamada a la función myMap (que a continuación pasaré a explicar su funcionamiento), de hacer una llamada a print y de devolver el resultado de la función myReduce que se debe implementar en cada una de las clases hijas.
+
+El método myMap es similar al que hemos desarrollado en otras prácticas, recibe el array de números y una función callback, y devuelve un array de números. En este método se hace uso de la función push para ir añadiendo los resultados de la función callback a un array que se inicializa vacío. Por último se devuelve el array con los resultados de la función callback.
+
+```typescript	
+1    protected myMap(array: number[], callback: (x: number) => number): number[] {
+2      const resultado: number[] = [];
+3      for (let i = 0; i < array.length; i++) {
+4        resultado.push(callback(array[i]));
+5      }
+6      this.array = resultado;
+7      return resultado;
+8    }
+```
+
+Hay que observar que el método myReduce se declara como abstracto porque cada una de las clases hijas debe implementar su propia versión de este método.
+Por ejemplo, para la clase AddMapReduce se define el método myReduce de la siguiente manera, se inicializa una variable resultado con el primer elemento del array que se pasó por parámetro, luego se recorre el array desde el segundo elemento hasta el último y se va sumando el resultado a la variable resultado. Por último se devuelve el resultado.
+
+```typescript
+1    protected myReduce(array: number[]): number {
+2      let resultado = array[0];
+3      for (let i = 1; i < array.length; i++) {
+4        resultado += array[i];
+5      }
+6      return resultado;
+7    }
+```
+
+En el caso de la clase SubMapReduce se realiza exactamente lo mismo pero en vez de realizar la suma se realiza la resta.
+
+```typescript
+1    protected myReduce(array: number[]): number {
+2      let resultado = array[0];
+3      for (let i = 1; i < array.length; i++) {
+4        resultado -= array[i];
+5      }
+6      return resultado;
+7    }
+```
+
+
+En el caso de la clase ProdMapReduce se realiza exactamente lo mismo pero con la multiplicación.
+
+```typescript
+1    protected myReduce(array: number[]): number {
+2      let resultado = array[0];
+3      for (let i = 1; i < array.length; i++) {
+4        resultado *= array[i];
+5      }
+6      return resultado;
+7    }
+```
+
+
+En el caso de la clase DivMapReduce se realiza exactamente lo mismo pero con la división.
+
+```typescript
+1    protected myReduce(array: number[]): number {
+2      let resultado = array[0];
+3      for (let i = 1; i < array.length; i++) {
+4        resultado /= array[i];
+5      }
+6      return Number(resultado.toFixed(3));
+7    }
+```
+
+Por último hay que aclarar lo que se pretende con el patrón Template Method. Este patrón nos permite definir una estrcutura básica de un algoritmo en una clase madre, de tal manera que en las clases hijas se extienda la funcionalidad principal en la que difieren, llevado a nuestro caso práctica podemos aclarar que el método myMap es el paso común a todas las clases hijas, mientras que el método myReduce es el que se implementa de manera diferente en cada una de las clases hijas.
+Este patrón nos da muchas ventajas como la reutilización y la flexibilidad de código o la reducción de errores en el mismo.
 
 
 

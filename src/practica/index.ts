@@ -85,82 +85,32 @@ yargs(hideBin(process.argv))
  .help()
  .argv;
 
-
-
-/**
- * Comando para listar los funkos de un usuario
- */
-yargs(hideBin(process.argv))
-  .command('list', 'Lista los funkos de un usuario', {
-  usuario: {
-    description: 'Nombre de usuario',
-    type: 'string',
-    demandOption: true
-  },
-  testing: {
-    description: 'Determina si se están ejecutando las pruebas',
-    type: 'boolean',
-    demandOption: false
-  }
-  }, (argv) => {
-    ManejadorJSON.listarFunkoDB(argv.usuario, argv.testing);
-  })
-.help()
-.argv;
-
-
-/**
- * Comando para eliminar un funko de un usuario
- */
-yargs(hideBin(process.argv))
-  .command('remove', 'Elimina un funko de un usuario', {
-  usuario: {
-    description: 'Nombre de usuario',
-    type: 'string',
-    demandOption: true
-  },
-  id: {
-    description: 'ID del funko que se quiere eliminar',
-    type: 'number',
-    demandOption: true
-  },
-  testing: {
-    description: 'Determina si se están ejecutando las pruebas',
-    type: 'boolean',
-    demandOption: false
-  }
-  }, (argv) => {
-    ManejadorJSON.eliminarFunkoDB(argv.id, argv.usuario, argv.testing);
-  })
-.help()
-.argv;
-
-
-/**
- * Comando para mostrar un funko de un usuario
- */
-yargs(hideBin(process.argv))
-  .command('read', 'Muestra un funko de un usuario', {
-  usuario: {
-    description: 'Nombre de usuario',
-    type: 'string',
-    demandOption: true
-  },
-  id: {
-    description: 'ID del funko que se quiere eliminar',
-    type: 'number',
-    demandOption: true
-  },
-  testing: {
-    description: 'Determina si se están ejecutando las pruebas',
-    type: 'boolean',
-    demandOption: false
-  }
-  }, (argv) => {
-    ManejadorJSON.mostrarFunkoDB(argv.id, argv.usuario, argv.testing);
-  })
-.help()
-.argv;
+ 
+ /**
+  * Comando para eliminar un funko de un usuario
+  */
+ yargs(hideBin(process.argv))
+   .command('remove', 'Elimina un funko de un usuario', {
+   usuario: {
+     description: 'Nombre de usuario',
+     type: 'string',
+     demandOption: true
+   },
+   id: {
+     description: 'ID del funko que se quiere eliminar',
+     type: 'number',
+     demandOption: true
+   },
+   testing: {
+     description: 'Determina si se están ejecutando las pruebas',
+     type: 'boolean',
+     demandOption: false
+   }
+   }, (argv) => {
+     ManejadorJSON.eliminarFunkoDB(argv.id, argv.usuario, argv.testing);
+   })
+ .help()
+ .argv;
 
 
 /**
@@ -234,4 +184,53 @@ yargs(hideBin(process.argv))
     })
  .help()
  .argv;
+
+
+/**
+* Comando para listar los funkos de un usuario
+*/
+yargs(hideBin(process.argv))
+  .command('list', 'Lista los funkos de un usuario', {
+  usuario: {
+    description: 'Nombre de usuario',
+    type: 'string',
+    demandOption: true
+  },  
+  testing: {
+    description: 'Determina si se están ejecutando las pruebas',
+    type: 'boolean',
+    demandOption: false
+  }  
+  }, (argv) => {
+    ManejadorJSON.listarFunkoDB(argv.usuario, argv.testing);
+  })  
+.help()  
+.argv;
+
+
+/**
+ * Comando para mostrar un funko de un usuario 
+ */
+yargs(hideBin(process.argv))
+  .command('read', 'Muestra un funko de un usuario', {
+  usuario: {
+    description: 'Nombre de usuario',
+    type: 'string',
+    demandOption: true
+  },  
+  id: {
+    description: 'ID del funko que se quiere eliminar',
+    type: 'number',
+    demandOption: true
+  },  
+  testing: {
+    description: 'Determina si se están ejecutando las pruebas',
+    type: 'boolean',
+    demandOption: false
+  }  
+  }, (argv) => {
+    ManejadorJSON.mostrarFunkoDB(argv.id, argv.usuario, argv.testing);
+  })  
+.help()  
+.argv;
 
