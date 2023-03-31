@@ -17,9 +17,9 @@ export abstract class ManejadorJSON {
    */
   public static existeUsuario(usuario: string, testing?: boolean): boolean {
     if(testing === undefined || testing === false) {
-      return fs.existsSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/db/${usuario}`);
+      return fs.existsSync('./db/' + usuario);
     } else if (testing === true) {
-      return fs.existsSync(`/home/usuario/ull-esit-inf-dsi-22-23-prct09-funko-app-facu2002/dbTesting/${usuario}`);
+      return fs.existsSync('./dbTesting/' + usuario);
     }
     return false;
   }

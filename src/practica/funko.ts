@@ -54,7 +54,7 @@ export class Funko {
     info += chalk.white(`Número de franquicia : ${this.numero}\n`);
     info += chalk.white(`Exclusivo : ${this.exclusivo}\n`);
     info += chalk.white(`Características : ${this.caracteristicas}\n`);
-    if(this.valor < 20) {
+    if(this.valor >= 0 && this.valor < 20) {
       info += `Valor : ` + chalk.red(`${this.valor}\n`);
     } else if (this.valor >= 20 && this.valor < 50) {
       info += `Valor : ` + chalk.green(`${this.valor}\n`);
@@ -62,6 +62,8 @@ export class Funko {
       info += `Valor : ` + chalk.yellow(`${this.valor}\n`);
     } else if (this.valor >= 100) {
       info += `Valor : ` + chalk.blue(`${this.valor}\n`);
+    } else {
+      info += `Valor : ` + chalk.white(`Valor inválido\n`);
     }
     return info;
   }
