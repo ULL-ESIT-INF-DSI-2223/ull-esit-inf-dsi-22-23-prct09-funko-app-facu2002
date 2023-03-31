@@ -211,7 +211,7 @@ Para la primera parte se comprueba si el funko existe en la lista del usuario, e
 16       }
 ```
 
-Para la segunda parte lo único distinto que debemos hacer es crear el usuario antes de insertar el funko. Para ello primero creamos la carpeta del ususario con la ayuda de la función mkdirSync pasándole la ruta en la que la debe crear y el nombre de la misma. A continuación se pasa a crear el funko de la misma manera en que lo hicimos anteriormente,.
+Para la segunda parte lo único distinto que debemos hacer es crear el usuario antes de insertar el funko. Para ello primero creamos la carpeta del ususario con la ayuda de la función mkdirSync pasándole la ruta en la que la debe crear y el nombre de la misma. A continuación se pasa a crear el funko de la misma manera en que lo hicimos anteriormente.
 
 ```typescript
 1     } else {
